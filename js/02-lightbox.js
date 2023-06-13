@@ -23,6 +23,20 @@ const galleryMarkup = galleryItems.reduce((acc, item) => {
 
 galleryRef.insertAdjacentHTML('beforeend', galleryMarkup);
 
-new SimpleLightbox('.gallery a', { captionDelay: 250, captionsData: "alt" });
+const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250, captionsData: "alt" });
 
 // console.log(galleryItems);
+
+lightbox.on('show.simplelightbox', function () {
+  document.addEventListener('keydown', handleKeyPress);
+});
+
+lightbox.on('close.simplelightbox', function () {
+  document.removeEventListener('keydown', handleKeyPress);
+});
+
+function handleKeyPress(event) {
+  if (event.key === 'Escape') {
+    lightbox.close();
+  }
+}
