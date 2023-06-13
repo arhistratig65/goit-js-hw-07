@@ -36,6 +36,10 @@ galleryRef.addEventListener("click", lightBox);
 
 function lightBox(event) {
   event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+
   const img = event.target.dataset.source;
 
   const instance = basicLightbox.create(`
